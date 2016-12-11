@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>KnockOut 1</title>
+</head>
+<body>
+<h2>Your seat reservations</h2>
+<h2>Total seats reserved (<span data-bind="text: seats().length"></span>)</h2>
+<table>
+    <thead><tr>
+        <th>Passenger name</th><th>Meal</th><th>Surcharge</th><th></th>
+    </tr></thead>
+
+	<tbody data-bind="foreach: seats">
+	    <tr>
+	    	<!-- 
+	        <td data-bind="text: name"></td>
+	        <td data-bind="text: meal().mealName"></td>
+	        -->
+	        <td><input data-bind="value: name" /></td>
+        	<td><select data-bind="options: $root.availableMeals, 
+        	value: meal, optionsText: 'mealName'"></select></td>
+<!-- 
+	        <td data-bind="text: meal().price"></td>
+ -->
+	        <td data-bind="text: formattedPrice"></td>
+	        <td><a href="#" data-bind="click: $root.removeSeat">Remove</a></td>
+	    </tr>    
+	</tbody>
+</table>
+
+<div>
+	<ul data-bind="foreach: availableMeals">
+		<li data-bind="text : mealName"></li>
+	</ul>
+</div>
+
+<h3 data-bind="visible: totalSurcharge() > 0">
+    Total surcharge: $<span data-bind="text: totalSurcharge().toFixed(2)"></span>
+</h3>
+
+<button data-bind="click: addSeat, enable: seats().length < 5">Reserve another seat (max 5)</button>
+
+<script data-main="main" src="lib/requirejs/require.js"></script>
+
+</body>
+</html>
